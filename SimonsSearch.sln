@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5D5F925A-A8D9-4A98-BDD7-B19B1E19F51C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimonsSearch.Api", "src\SimonsSearch.Api\SimonsSearch.Api.csproj", "{68A55955-05AC-49AE-A036-90F3257E2576}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A0B2ABF3-6CFF-4E03-842F-75DE0F575D24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimonsSearch.Api.Tests", "test\SimonsSearch.Api.Tests\SimonsSearch.Api.Tests.csproj", "{88D7857B-9855-41B3-85FA-5D693DDEA1E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{68A55955-05AC-49AE-A036-90F3257E2576} = {5D5F925A-A8D9-4A98-BDD7-B19B1E19F51C}
+		{88D7857B-9855-41B3-85FA-5D693DDEA1E0} = {A0B2ABF3-6CFF-4E03-842F-75DE0F575D24}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68A55955-05AC-49AE-A036-90F3257E2576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A55955-05AC-49AE-A036-90F3257E2576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A55955-05AC-49AE-A036-90F3257E2576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A55955-05AC-49AE-A036-90F3257E2576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88D7857B-9855-41B3-85FA-5D693DDEA1E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88D7857B-9855-41B3-85FA-5D693DDEA1E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88D7857B-9855-41B3-85FA-5D693DDEA1E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88D7857B-9855-41B3-85FA-5D693DDEA1E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
