@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SimonsSearch.Core.Repositories;
+using SimonsSearch.Core.Services;
 
 namespace SimonsSearch.Api
 {
@@ -32,6 +33,7 @@ namespace SimonsSearch.Api
             services.AddScoped<ILockRepository, LockRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IMediumRepository, MediumRepository>();
+            services.AddScoped<ISearchService, SearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
