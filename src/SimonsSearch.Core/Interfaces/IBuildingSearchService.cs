@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SimonsSearch.Core.Models;
 
-namespace SimonsSearch.Core.Services
+namespace SimonsSearch.Core.Interfaces
 {
     public interface IBuildingSearchService
     {

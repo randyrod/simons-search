@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimonsSearch.Core.Interfaces;
 using SimonsSearch.Core.Models;
 
 namespace SimonsSearch.Core.Services

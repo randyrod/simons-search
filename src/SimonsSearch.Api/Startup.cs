@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SimonsSearch.Core.Interfaces;
 using SimonsSearch.Core.Repositories;
 using SimonsSearch.Core.Services;
 

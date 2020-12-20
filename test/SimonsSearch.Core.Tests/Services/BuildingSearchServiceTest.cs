@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Moq;
+using SimonsSearch.Core.Interfaces;
 using SimonsSearch.Core.Models;
 using SimonsSearch.Core.Repositories;
 using SimonsSearch.Core.Services;
