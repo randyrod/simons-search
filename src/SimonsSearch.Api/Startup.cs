@@ -33,6 +33,7 @@ namespace SimonsSearch.Api
             services.AddScoped<ILockRepository, LockRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IMediumRepository, MediumRepository>();
+            services.AddScoped<IBuildingWeightCalculator, BuildingWeightCalculator>();
             services.AddScoped<ISearchService, SearchService>();
         }
 
