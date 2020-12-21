@@ -38,6 +38,8 @@ namespace SimonsSearch.Api
             services.AddScoped<IBuildingSearchService, BuildingSearchService>();
             services.AddScoped<ILockWeightCalculator, LockWeightCalculator>();
             services.AddScoped<ILockSearchService, LockSearchService>();
+            services.AddScoped<IGroupWeightCalculator, GroupWeightCalculator>();
+            services.AddScoped<IGroupSearchService, GroupSearchService>();
             services.AddScoped<ISearchService, SearchService>();
         }
 
