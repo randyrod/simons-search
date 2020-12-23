@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimonsSearch.Common.Enums;
 using SimonsSearch.Data;
 using SimonsSearch.Data.Entities;
 
@@ -15,12 +16,13 @@ namespace SimonsSearch.Core.Repositories
             _dbContext = dbContext;
         }
 
-        public IReadOnlyList<Medium> GetMediumsMatchingTerms(IReadOnlyList<string> searchTerms) =>
+        public IReadOnlyList<Medium> GetMediumsMatchingTerms(IReadOnlyList<string> searchTerms, IReadOnlyList<MediumType> mediumTypes) =>
             _dbContext.Mediums.Where(x =>
                     searchTerms.Any(s =>
-                        x.Owner.Contains(s, StringComparison.InvariantCultureIgnoreCase) ||
-                        x.Description.Contains(s, StringComparison.InvariantCultureIgnoreCase) ||
-                        x.SerialNumber.Contains(s, StringComparison.InvariantCultureIgnoreCase)))
+                        (x.Owner?.Contains(s, StringComparison.InvariantCultureIgnoreCase) ?? false) ||
+                        (x.Description?.Contains(s, StringComparison.InvariantCultureIgnoreCase) ?? false) ||
+                        (x.SerialNumber?.Contains(s, StringComparison.InvariantCultureIgnoreCase) ?? false) ||
+                        mediumTypes.Any(t => t == x.Type)))
                 .ToList();
     }
 }
