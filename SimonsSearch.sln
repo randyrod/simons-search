@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimonsSearch.Core.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimonsSearch.Testing", "test\SimonsSearch.Testing\SimonsSearch.Testing.csproj", "{3E5DE891-E5C5-4CFC-9CFC-E7D9222334CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimonsSearch.Common.Tests", "test\SimonsSearch.Common.Tests\SimonsSearch.Common.Tests.csproj", "{B9CC93B3-7111-4856-A684-8FC952370C50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,7 @@ Global
 		{D2D7C334-D805-4031-BF38-2141D7EE7B9E} = {5D5F925A-A8D9-4A98-BDD7-B19B1E19F51C}
 		{243504FD-9E2E-4B2C-987D-6208E8461412} = {A0B2ABF3-6CFF-4E03-842F-75DE0F575D24}
 		{3E5DE891-E5C5-4CFC-9CFC-E7D9222334CC} = {A0B2ABF3-6CFF-4E03-842F-75DE0F575D24}
+		{B9CC93B3-7111-4856-A684-8FC952370C50} = {A0B2ABF3-6CFF-4E03-842F-75DE0F575D24}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{68A55955-05AC-49AE-A036-90F3257E2576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -61,5 +64,9 @@ Global
 		{3E5DE891-E5C5-4CFC-9CFC-E7D9222334CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E5DE891-E5C5-4CFC-9CFC-E7D9222334CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E5DE891-E5C5-4CFC-9CFC-E7D9222334CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9CC93B3-7111-4856-A684-8FC952370C50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9CC93B3-7111-4856-A684-8FC952370C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9CC93B3-7111-4856-A684-8FC952370C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9CC93B3-7111-4856-A684-8FC952370C50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
