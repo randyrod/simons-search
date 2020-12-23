@@ -11,5 +11,22 @@ namespace SimonsSearch.Core.Models
         public string Description { get; set; }
 
         public int TransitoryWeight { get; set; }
+
+        public override string ToString()
+        {
+            var result = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(Description))
+            {
+                result += $"Description: {Description}, ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(ShortCut))
+            {
+                result += $"Shortcut: {ShortCut}";
+            }
+
+            return result;
+        }
     }
 }

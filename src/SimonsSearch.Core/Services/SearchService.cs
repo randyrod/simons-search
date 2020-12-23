@@ -1,24 +1,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using SimonsSearch.Common.Enums;
+using SimonsSearch.Core.Interfaces;
 using SimonsSearch.Core.Models;
-using SimonsSearch.Core.Repositories;
 
 namespace SimonsSearch.Core.Services
 {
     public class SearchService : ISearchService
     {
-        private readonly IBuildingRepository _buildingRepository;
-        private readonly IGroupRepository _groupRepository;
-        private readonly ILockRepository _lockRepository;
-        private readonly IMediumRepository _mediumRepository;
+        private readonly IBuildingSearchService _buildingSearchService;
+        private readonly IGroupSearchService _groupSearchService;
+        private readonly ILockSearchService _lockSearchService;
+        private readonly IMediumSearchService _mediumSearchService;
 
-        public SearchService(IBuildingRepository buildingRepository, IGroupRepository groupRepository, ILockRepository lockRepository, IMediumRepository mediumRepository)
+        public SearchService(IBuildingSearchService buildingSearchService, ILockSearchService lockSearchService, IGroupSearchService groupSearchService, IMediumSearchService mediumSearchService)
         {
-            _buildingRepository = buildingRepository;
-            _groupRepository = groupRepository;
-            _lockRepository = lockRepository;
-            _mediumRepository = mediumRepository;
+            _buildingSearchService = buildingSearchService;
+            _lockSearchService = lockSearchService;
+            _groupSearchService = groupSearchService;
+            _mediumSearchService = mediumSearchService;
         }
 
         public IReadOnlyList<SearchResultDto> Search(string searchQuery)
@@ -28,63 +28,60 @@ namespace SimonsSearch.Core.Services
                 return new List<SearchResultDto>();
             }
 
+            searchQuery = searchQuery.ToUpperInvariant();
+
             var separateSearchTerms = GetSeparateTerms(searchQuery);
 
-            var buildings = _buildingRepository.GetBuildingsMatchingTerms(separateSearchTerms);
-            var locks = _lockRepository.GetLocksMatchingTerms(separateSearchTerms);
-            var groups = _groupRepository.GetGroupsMatchingTerms(separateSearchTerms);
-            var mediums = _mediumRepository.GetMediumsMatchingTerms(separateSearchTerms);
+            var buildings = _buildingSearchService.Search(searchQuery, separateSearchTerms);
+            var locks = _lockSearchService.Search(searchQuery, separateSearchTerms, buildings);
+            var groups = _groupSearchService.Search(searchQuery, separateSearchTerms);
+            var mediums = _mediumSearchService.Search(searchQuery, separateSearchTerms, groups);
 
-            var searchResults = new List<SearchResultDto>();
-
-            foreach (var building in buildings)
-            {
-                searchResults.Add(new SearchResultDto
+            var searchResults = buildings
+                .Select(b => new SearchResultDto
                 {
-                    Name = building.Name,
-                    Metadata = string.Join(", ", building.Description, building.ShortCut),
-                    Type = ResultType.Building
-                });
-            }
+                    Id = b.Id,
+                    Name = b.Name,
+                    Metadata = b.ToString(),
+                    Type = ResultType.Building,
+                    Weight = b.Weight
+                }).ToList();
 
-            foreach (var sLock in locks)
-            {
-                searchResults.Add(new SearchResultDto
+            searchResults
+                .AddRange(locks.Select(l => new SearchResultDto
+                        {
+                            Id = l.Id,
+                            Name = l.Name,
+                            Metadata = l.ToString(),
+                            Type = ResultType.Lock,
+                            Weight = l.Weight
+                        }));
+
+            searchResults.AddRange(groups.Select(g => new SearchResultDto
                 {
-                    Name = sLock.Name,
-                    Metadata = string.Join(", ", sLock.Description, sLock.Floor, sLock.Type.ToString("G"), sLock.RoomNumber, sLock.SerialNumber),
-                    Type = ResultType.Lock
-                });
-            }
+                    Id = g.Id,
+                    Name = g.Name,
+                    Metadata = g.ToString(),
+                    Type = ResultType.Group,
+                    Weight = g.Weight
+                }));
 
-            foreach (var group in groups)
+            searchResults.AddRange(mediums.Select(m => new SearchResultDto
             {
-                searchResults.Add(new SearchResultDto
-                {
-                    Name = group.Name,
-                    Metadata = group.Description,
-                    Type = ResultType.Group
-                });
-            }
+                Id = m.Id,
+                Name = m.Owner,
+                Metadata = m.ToString(),
+                Type = ResultType.Medium,
+                Weight = m.Weight
+            }));
 
-            foreach (var medium in mediums)
-            {
-                searchResults.Add(new SearchResultDto
-                {
-                    Name = medium.Owner,
-                    Metadata = string.Join(", ", medium.Description, medium.SerialNumber, medium.Type.ToString("G")),
-                    Type = ResultType.Medium
-                });
-            }
+            var result = searchResults
+                .OrderByDescending(x => x.Weight)
+                .ToList();
 
-            return searchResults;
+            return result;
         }
 
-        private static IReadOnlyList<string> GetSeparateTerms(string searchTerms)
-        {
-            searchTerms = searchTerms.ToUpperInvariant();
-
-            return searchTerms.Split(' ').ToList();
-        }
+        private static IReadOnlyList<string> GetSeparateTerms(string searchTerms) => searchTerms.Split(' ').ToList();
     }
 }

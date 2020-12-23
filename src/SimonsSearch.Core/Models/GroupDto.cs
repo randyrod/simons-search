@@ -9,5 +9,10 @@ namespace SimonsSearch.Core.Models
         public string Description { get; set; }
 
         public int TransitoryWeight { get; set; }
+
+        public override string ToString()
+        {
+            return string.IsNullOrWhiteSpace(Description) ? string.Empty : $"Description: {Description}";
+        }
     }
 }
