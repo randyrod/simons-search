@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SimonsSearch.Data;
@@ -18,9 +19,9 @@ namespace SimonsSearch.Core.Repositories
         public IReadOnlyList<Building> GetBuildingsMatchingTerms(IReadOnlyList<string> searchTerms) =>
             _dbContext.Buildings.Where(x =>
                     searchTerms.Any(s =>
-                        x.Name.Contains(s) ||
-                        x.Description.Contains(s) ||
-                        x.ShortCut.Contains(s)))
+                        (x.Name?.Contains(s, StringComparison.InvariantCultureIgnoreCase) ?? false) ||
+                        (x.Description?.Contains(s, StringComparison.InvariantCultureIgnoreCase) ?? false) ||
+                        (x.ShortCut?.Contains(s, StringComparison.InvariantCultureIgnoreCase) ?? false)))
                 .Distinct()
                 .ToList();
     }

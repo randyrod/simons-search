@@ -18,8 +18,8 @@ namespace SimonsSearch.Core.Repositories
         public IReadOnlyList<Group> GetGroupsMatchingTerms(IReadOnlyList<string> searchTerms) =>
             _dbContext.Groups.Where(x =>
                     searchTerms.Any(s =>
-                        x.Name.Contains(s, StringComparison.InvariantCultureIgnoreCase) ||
-                        x.Description.Contains(s, StringComparison.InvariantCultureIgnoreCase)))
+                        (x.Name?.Contains(s, StringComparison.InvariantCultureIgnoreCase) ?? false) ||
+                        (x.Description?.Contains(s, StringComparison.InvariantCultureIgnoreCase) ?? false)))
                 .ToList();
     }
 }
