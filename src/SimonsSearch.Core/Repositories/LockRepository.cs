@@ -9,11 +9,11 @@ namespace SimonsSearch.Core.Repositories
 {
     public class LockRepository : ILockRepository
     {
-        private readonly SimonsSearchDbContext _dbContext;
+        private readonly ISimonsSearchDataContext _dbContext;
 
-        public LockRepository()
+        public LockRepository(ISimonsSearchDataContext simonsSearchDataContext)
         {
-            _dbContext = new SimonsSearchDbContext();
+            _dbContext = simonsSearchDataContext;
         }
 
         public IReadOnlyList<Lock> GetLocksMatchingTerms(IReadOnlyList<string> searchTerms, IReadOnlyList<LockType> lockTypes) =>

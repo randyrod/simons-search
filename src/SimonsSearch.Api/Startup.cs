@@ -1,18 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using SimonsSearch.Core.Interfaces;
 using SimonsSearch.Core.Repositories;
 using SimonsSearch.Core.Services;
+using SimonsSearch.Data;
 
 namespace SimonsSearch.Api
 {
@@ -30,6 +24,11 @@ namespace SimonsSearch.Api
         {
             services.AddControllers();
 
+            services.AddSingleton<ISimonsSearchDataContext, SimonsSearchDataContext>();
+
+            services.AddHttpClient<ISimonsSearchHttpClient, SimonsSearchHttpClient>();
+
+            services.AddScoped<ISimonsSearchDataSeeder, SimonsSearchDataSeeder>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<ILockRepository, LockRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
@@ -60,6 +59,13 @@ namespace SimonsSearch.Api
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var service = scope.ServiceProvider.GetService<ISimonsSearchDataSeeder>();
+
+                service.SeedDataAsync().Wait();
+            }
         }
     }
 }

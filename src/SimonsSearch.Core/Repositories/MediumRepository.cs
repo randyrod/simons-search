@@ -9,11 +9,11 @@ namespace SimonsSearch.Core.Repositories
 {
     public class MediumRepository : IMediumRepository
     {
-        private readonly SimonsSearchDbContext _dbContext;
+        private readonly ISimonsSearchDataContext _dbContext;
 
-        public MediumRepository(SimonsSearchDbContext dbContext)
+        public MediumRepository(ISimonsSearchDataContext simonsSearchDataContext)
         {
-            _dbContext = dbContext;
+            _dbContext = simonsSearchDataContext;
         }
 
         public IReadOnlyList<Medium> GetMediumsMatchingTerms(IReadOnlyList<string> searchTerms, IReadOnlyList<MediumType> mediumTypes) =>

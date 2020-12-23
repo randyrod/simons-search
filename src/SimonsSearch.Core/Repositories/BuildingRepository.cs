@@ -8,13 +8,12 @@ namespace SimonsSearch.Core.Repositories
 {
     public class BuildingRepository : IBuildingRepository
     {
-        private readonly SimonsSearchDbContext _dbContext;
+        private readonly ISimonsSearchDataContext _dbContext;
 
-        public BuildingRepository(SimonsSearchDbContext dbContext)
+        public BuildingRepository(ISimonsSearchDataContext simonsSearchDataContext)
         {
-            _dbContext = dbContext;
+            _dbContext = simonsSearchDataContext;
         }
-
 
         public IReadOnlyList<Building> GetBuildingsMatchingTerms(IReadOnlyList<string> searchTerms) =>
             _dbContext.Buildings.Where(x =>

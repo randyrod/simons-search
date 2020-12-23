@@ -8,11 +8,11 @@ namespace SimonsSearch.Core.Repositories
 {
     public class GroupRepository : IGroupRepository
     {
-        private readonly SimonsSearchDbContext _dbContext;
+        private readonly ISimonsSearchDataContext _dbContext;
 
-        public GroupRepository(SimonsSearchDbContext dbContext)
+        public GroupRepository(ISimonsSearchDataContext simonsSearchDataContext)
         {
-            _dbContext = dbContext;
+            _dbContext = simonsSearchDataContext;
         }
 
         public IReadOnlyList<Group> GetGroupsMatchingTerms(IReadOnlyList<string> searchTerms) =>
