@@ -41,6 +41,7 @@ namespace SimonsSearch.Api
             services.AddScoped<IGroupWeightCalculator, GroupWeightCalculator>();
             services.AddScoped<IGroupSearchService, GroupSearchService>();
             services.AddScoped<IMediumWeightCalculator, MediumWeightCalculator>();
+            services.AddScoped<IMediumSearchService, MediumSearchService>();
             services.AddScoped<ISearchService, SearchService>();
         }
 
