@@ -54,7 +54,7 @@ namespace SimonsSearch.Core.Tests.Services
                 new BuildingDto
                 {
                     Name = "Building one",
-                    ShortCut = "BLD1",
+                    ShortCut = "BLD11",
                     Description = "The building number 1"
                 }
             };

@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimonsSearch.Common.Extensions;
 using SimonsSearch.Core.Interfaces;
 using SimonsSearch.Core.Models;
 
@@ -36,31 +36,31 @@ namespace SimonsSearch.Core.Services
         {
             var fullyMatchedProperties = new List<string>();
 
-            if (string.Equals(lockDto.Name, searchQuery, StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(lockDto.Name))
             {
                 lockDto.Weight += NameWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(lockDto.Name));
             }
 
-            if (string.Equals(lockDto.Description, searchQuery, StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(lockDto.Description))
             {
                 lockDto.Weight += DescriptionWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(lockDto.Description));
             }
 
-            if (string.Equals(lockDto.Floor, searchQuery, StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(lockDto.Floor))
             {
                 lockDto.Weight += FloorWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(lockDto.Floor));
             }
 
-            if (string.Equals(lockDto.RoomNumber, searchQuery, StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(lockDto.RoomNumber))
             {
                 lockDto.Weight += RoomWNumberWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(lockDto.RoomNumber));
             }
 
-            if (string.Equals(lockDto.SerialNumber, searchQuery, StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(lockDto.SerialNumber))
             {
                 lockDto.Weight += SerialNumberWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(lockDto.SerialNumber));
@@ -73,11 +73,11 @@ namespace SimonsSearch.Core.Services
         {
             var lockTypeString = lockDto.Type.ToString("G");
 
-            if (searchTerms.Any(x => string.Equals(x, lockTypeString, StringComparison.InvariantCultureIgnoreCase)))
+            if (searchTerms.Any(x => x.ContainsInvariant(lockTypeString)))
             {
                 lockDto.Weight += TypeWeight * FullMatchMultiplier;
             }
-            else if (searchTerms.Any(x => lockTypeString.Contains(x, StringComparison.InvariantCultureIgnoreCase)))
+            else if (searchTerms.Any(x => lockTypeString.ContainsInvariant(x)))
             {
                 lockDto.Weight += TypeWeight;
             }
@@ -88,31 +88,31 @@ namespace SimonsSearch.Core.Services
             foreach (var searchTerm in searchTerms)
             {
                 if (!fullyMatchedProperties.Contains(nameof(lockDto.Name)) &&
-                    (lockDto.Name?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (lockDto.Name?.ContainsInvariant(searchTerm) ?? false))
                 {
                     lockDto.Weight += NameWeight;
                 }
 
                 if (!fullyMatchedProperties.Contains(nameof(lockDto.Description)) &&
-                    (lockDto.Description?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (lockDto.Description?.ContainsInvariant(searchTerm) ?? false))
                 {
                     lockDto.Weight += DescriptionWeight;
                 }
 
                 if (!fullyMatchedProperties.Contains(nameof(lockDto.Floor)) &&
-                    (lockDto.Floor?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (lockDto.Floor?.ContainsInvariant(searchTerm) ?? false))
                 {
                     lockDto.Weight += FloorWeight;
                 }
 
                 if (!fullyMatchedProperties.Contains(nameof(lockDto.RoomNumber)) &&
-                    (lockDto.RoomNumber?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (lockDto.RoomNumber?.ContainsInvariant(searchTerm) ?? false))
                 {
                     lockDto.Weight += RoomWNumberWeight;
                 }
 
                 if (!fullyMatchedProperties.Contains(nameof(lockDto.SerialNumber)) &&
-                    (lockDto.SerialNumber?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (lockDto.SerialNumber?.ContainsInvariant(searchTerm) ?? false))
                 {
                     lockDto.Weight += SerialNumberWeight;
                 }

@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimonsSearch.Common.Extensions;
 using SimonsSearch.Core.Interfaces;
 using SimonsSearch.Core.Models;
 
@@ -31,14 +31,14 @@ namespace SimonsSearch.Core.Services
         {
             var fullyMatchedProperties = new List<string>();
 
-            if (!string.IsNullOrWhiteSpace(groupDto.Name) && originalSearchQuery.Contains(groupDto.Name, StringComparison.InvariantCultureIgnoreCase))
+            if (originalSearchQuery.ContainsInvariant(groupDto.Name))
             {
                 groupDto.Weight += NameWeight * FullMatchMultiplier;
                 groupDto.TransitoryWeight += NameTransitoryWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(groupDto.Name));
             }
 
-            if (!string.IsNullOrWhiteSpace(groupDto.Description) && originalSearchQuery.Contains(groupDto.Description, StringComparison.InvariantCultureIgnoreCase))
+            if (originalSearchQuery.ContainsInvariant(groupDto.Description))
             {
                 groupDto.Weight += DescriptionWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(groupDto.Description));
@@ -52,14 +52,14 @@ namespace SimonsSearch.Core.Services
             foreach (var searchTerm in separateSearchTerms)
             {
                 if (!fullyMatchedProperties.Contains(nameof(groupDto.Name)) &&
-                    (groupDto.Name?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (groupDto.Name?.ContainsInvariant(searchTerm) ?? false))
                 {
                     groupDto.Weight += NameWeight;
                     groupDto.TransitoryWeight += NameTransitoryWeight;
                 }
 
                 if (!fullyMatchedProperties.Contains(nameof(groupDto.Description)) &&
-                    (groupDto.Description?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (groupDto.Description?.ContainsInvariant(searchTerm) ?? false))
                 {
                     groupDto.Weight += DescriptionWeight;
                 }

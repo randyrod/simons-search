@@ -90,7 +90,7 @@ namespace SimonsSearch.Core.Tests.Services
                 {
                     Name = "Lock 5",
                     Description = "Main floor",
-                    Floor = "5"
+                    Floor = "Fifth"
                 }
             };
 

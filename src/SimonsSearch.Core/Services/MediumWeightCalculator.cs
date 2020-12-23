@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimonsSearch.Common.Extensions;
 using SimonsSearch.Core.Interfaces;
 using SimonsSearch.Core.Models;
 
@@ -34,22 +34,19 @@ namespace SimonsSearch.Core.Services
         {
             var fullyMatchedProperties = new List<string>();
 
-            if (!string.IsNullOrWhiteSpace(mediumDto.Owner) &&
-                searchQuery.Contains(mediumDto.Owner, StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(mediumDto.Owner))
             {
                 mediumDto.Weight += OwnerWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(mediumDto.Owner));
             }
 
-            if (!string.IsNullOrWhiteSpace(mediumDto.Description) && searchQuery.Contains(mediumDto.Description,
-                StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(mediumDto.Description))
             {
                 mediumDto.Weight += DescriptionWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(mediumDto.Description));
             }
 
-            if (!string.IsNullOrWhiteSpace(mediumDto.SerialNumber) && searchQuery.Contains(mediumDto.SerialNumber,
-                StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(mediumDto.SerialNumber))
             {
                 mediumDto.Weight += SerialNumberWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(mediumDto.SerialNumber));
@@ -63,19 +60,19 @@ namespace SimonsSearch.Core.Services
             foreach (var searchTerm in separateSearchTerms)
             {
                 if (!matchedProperties.Contains(nameof(mediumDto.Description)) &&
-                    (mediumDto.Description?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (mediumDto.Description?.ContainsInvariant(searchTerm) ?? false))
                 {
                     mediumDto.Weight += DescriptionWeight;
                 }
 
                 if (!matchedProperties.Contains(nameof(mediumDto.Owner)) &&
-                    (mediumDto.Owner?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (mediumDto.Owner?.ContainsInvariant(searchTerm) ?? false))
                 {
                     mediumDto.Weight += OwnerWeight;
                 }
 
                 if (!matchedProperties.Contains(nameof(mediumDto.SerialNumber)) &&
-                    (mediumDto.SerialNumber?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ??
+                    (mediumDto.SerialNumber?.ContainsInvariant(searchTerm) ??
                      false))
                 {
                     mediumDto.Weight += SerialNumberWeight;
@@ -87,11 +84,11 @@ namespace SimonsSearch.Core.Services
         {
             var mediumTypeString = mediumDto.Type.ToString("G");
 
-            if (searchTerms.Any(x => string.Equals(x, mediumTypeString, StringComparison.InvariantCultureIgnoreCase)))
+            if (searchTerms.Any(x => x.ContainsInvariant(mediumTypeString)))
             {
                 mediumDto.Weight += TypeWeight * FullMatchMultiplier;
             }
-            else if (searchTerms.Any(x => mediumTypeString.Contains(x, StringComparison.InvariantCultureIgnoreCase)))
+            else if (searchTerms.Any(x => mediumTypeString.ContainsInvariant(x)))
             {
                 mediumDto.Weight += TypeWeight;
             }

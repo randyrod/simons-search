@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using SimonsSearch.Common.Extensions;
 using SimonsSearch.Core.Interfaces;
 using SimonsSearch.Core.Models;
 
@@ -33,20 +33,20 @@ namespace SimonsSearch.Core.Services
         {
             var fullyMatchedProperties = new List<string>();
 
-            if (string.Equals(building.Name, searchQuery, StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(building.Name))
             {
                 building.Weight += NameWeight * FullMatchMultiplier;
                 building.TransitoryWeight += NameTransitoryWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(building.Name));
             }
 
-            if (string.Equals(building.Description, searchQuery, StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(building.Description))
             {
                 building.Weight += DescriptionWeight * FullMatchMultiplier;
                 fullyMatchedProperties.Add(nameof(building.Description));
             }
 
-            if (string.Equals(building.ShortCut, searchQuery, StringComparison.InvariantCultureIgnoreCase))
+            if (searchQuery.ContainsInvariant(building.ShortCut))
             {
                 building.Weight += ShortCutWeight * FullMatchMultiplier;
                 building.TransitoryWeight += ShortCutTransitoryWeight * FullMatchMultiplier;
@@ -61,20 +61,20 @@ namespace SimonsSearch.Core.Services
             foreach (var searchTerm in searchTerms)
             {
                 if (!fullyMatched.Contains(nameof(buildingDto.Name)) &&
-                    (buildingDto.Name?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (buildingDto.Name?.ContainsInvariant(searchTerm) ?? false))
                 {
                     buildingDto.Weight += NameWeight;
                     buildingDto.TransitoryWeight += NameTransitoryWeight;
                 }
 
                 if (!fullyMatched.Contains(nameof(buildingDto.Description)) &&
-                    (buildingDto.Description?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (buildingDto.Description?.ContainsInvariant(searchTerm) ?? false))
                 {
                     buildingDto.Weight += DescriptionWeight;
                 }
 
                 if (!fullyMatched.Contains(buildingDto.ShortCut) &&
-                    (buildingDto.ShortCut?.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase) ?? false))
+                    (buildingDto.ShortCut?.ContainsInvariant(searchTerm) ?? false))
                 {
                     buildingDto.Weight += ShortCutWeight;
                     buildingDto.TransitoryWeight += ShortCutTransitoryWeight;
