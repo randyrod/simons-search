@@ -40,6 +40,7 @@ namespace SimonsSearch.Api
             services.AddScoped<ILockSearchService, LockSearchService>();
             services.AddScoped<IGroupWeightCalculator, GroupWeightCalculator>();
             services.AddScoped<IGroupSearchService, GroupSearchService>();
+            services.AddScoped<IMediumWeightCalculator, MediumWeightCalculator>();
             services.AddScoped<ISearchService, SearchService>();
         }
 
