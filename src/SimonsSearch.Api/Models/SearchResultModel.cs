@@ -1,6 +1,6 @@
 using SimonsSearch.Common.Enums;
 
-namespace SimonsSearch.Api
+namespace SimonsSearch.Api.Models
 {
     public class SearchResultModel
     {

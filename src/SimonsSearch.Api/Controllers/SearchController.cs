@@ -1,5 +1,6 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using SimonsSearch.Api.Models;
 using SimonsSearch.Core.Services;
 
 namespace SimonsSearch.Api.Controllers
