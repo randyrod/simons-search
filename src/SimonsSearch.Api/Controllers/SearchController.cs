@@ -21,9 +21,10 @@ namespace SimonsSearch.Api.Controllers
 
             var results = maybeResult.Select(x => new SearchResultModel
             {
+                Id = x.Id,
                 Name = x.Name,
                 Metadata = x.Metadata,
-                Type = x.Type
+                Type = x.Type.ToString("G")
             }).ToList();
             return Ok(results);
         }
