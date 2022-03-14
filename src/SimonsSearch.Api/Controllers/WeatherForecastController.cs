@@ -35,5 +35,12 @@ namespace SimonsSearch.Api.Controllers
                 })
                 .ToArray();
         }
+        
+        [HttpPut]
+        public bool Put()
+        {
+            var rng = new Random();
+            return rng % 2 == 0 ? true : false;
+        }
     }
 }
